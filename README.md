@@ -1,2 +1,3 @@
 # my-website
-初めてのwebサイト
+初めてのwebサイト  
+https://breakmeintolittlepieces1.github.io/my-website/
