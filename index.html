@@ -1,4 +1,558 @@
-私のwebサイト
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Website</title>
+    <meta
+      name="description"
+      content="私のポートフォリオサイト。自己紹介、趣味、好きなことをまとめています。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-1: #0b1020;
+        --bg-2: #111827;
+        --bg-3: #1f2937;
+        --panel: rgba(17, 24, 39, 0.7);
+        --panel-strong: rgba(31, 41, 55, 0.85);
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --primary: #8b5cf6;
+        --secondary: #22d3ee;
+        --accent: #f59e0b;
+        --border: rgba(255, 255, 255, 0.12);
+        --shadow: rgba(15, 23, 42, 0.45);
+      }
 
-自己紹介
-趣味は読書
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", "Noto Sans JP", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(139, 92, 246, 0.22), transparent 32%),
+          radial-gradient(circle at right, rgba(34, 211, 238, 0.18), transparent 25%),
+          linear-gradient(135deg, var(--bg-1), var(--bg-2) 45%, var(--bg-3));
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      .container {
+        width: min(1100px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        backdrop-filter: blur(12px);
+        background: rgba(11, 16, 32, 0.4);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 76px;
+      }
+
+      .brand {
+        font-size: 1.1rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .brand span {
+        color: var(--secondary);
+      }
+
+      nav {
+        display: flex;
+        gap: 28px;
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+
+      nav a {
+        transition: color 0.25s ease;
+      }
+
+      nav a:hover {
+        color: var(--text);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.85rem 1.5rem;
+        border-radius: 999px;
+        font-weight: 700;
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        box-shadow: 0 18px 32px rgba(139, 92, 246, 0.35);
+      }
+
+      .btn-secondary {
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--text);
+      }
+
+      .hero {
+        padding: 90px 0 50px;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 40px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        padding: 0.5rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--secondary);
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 1rem 0 1rem;
+        font-size: clamp(2.5rem, 5vw, 5rem);
+        line-height: 1;
+        letter-spacing: -0.06em;
+      }
+
+      h1 .highlight {
+        background: linear-gradient(135deg, #f0abfc, #67e8f9, #fbbf24);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .lead {
+        max-width: 620px;
+        font-size: 1.05rem;
+        color: var(--muted);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.75rem;
+        margin-top: 2.2rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .hero-meta strong {
+        color: var(--text);
+        font-size: 1.2rem;
+        display: block;
+      }
+
+      .profile-card {
+        position: relative;
+        padding: 24px;
+        border-radius: 28px;
+        background: linear-gradient(180deg, rgba(31, 41, 55, 0.9), rgba(15, 23, 42, 0.75));
+        border: 1px solid var(--border);
+        box-shadow: 0 30px 60px var(--shadow);
+      }
+
+      .profile-visual {
+        position: relative;
+        min-height: 440px;
+        border-radius: 24px;
+        overflow: hidden;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.33), rgba(34, 211, 238, 0.15));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .profile-visual::before,
+      .profile-visual::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(8px);
+      }
+
+      .profile-visual::before {
+        width: 210px;
+        height: 210px;
+        right: -20px;
+        top: 24px;
+        background: rgba(244, 114, 182, 0.55);
+      }
+
+      .profile-visual::after {
+        width: 160px;
+        height: 160px;
+        left: -16px;
+        bottom: 18px;
+        background: rgba(34, 211, 238, 0.45);
+      }
+
+      .profile-content {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 24px;
+        background: linear-gradient(180deg, transparent, rgba(2, 6, 23, 0.72));
+      }
+
+      .profile-badge {
+        display: inline-flex;
+        align-self: flex-start;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .profile-name {
+        margin-top: 0.85rem;
+      }
+
+      .profile-name h2 {
+        margin: 0;
+        font-size: clamp(1.7rem, 3vw, 2.2rem);
+        letter-spacing: -0.04em;
+      }
+
+      .profile-name p {
+        margin: 0.35rem 0 0;
+        color: var(--muted);
+      }
+
+      .section {
+        padding: 70px 0;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .section-head h3 {
+        margin: 0;
+        font-size: clamp(1.8rem, 3vw, 2.5rem);
+        letter-spacing: -0.04em;
+      }
+
+      .section-head p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+      }
+
+      .card {
+        padding: 1.5rem;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
+      }
+
+      .icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.35), rgba(34, 211, 238, 0.35));
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        font-size: 1.3rem;
+      }
+
+      .card h4 {
+        margin: 0 0 0.5rem;
+        font-size: 1.15rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 28px;
+      }
+
+      .about-box,
+      .info-box {
+        padding: 1.8rem;
+        border-radius: 24px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .about-box p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.02rem;
+      }
+
+      .info-box ul {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0 0;
+        display: grid;
+        gap: 0.9rem;
+        color: var(--muted);
+      }
+
+      .info-box li {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 0.7rem;
+      }
+
+      .info-box strong {
+        color: var(--text);
+      }
+
+      .footer {
+        padding: 28px 0 48px;
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        color: var(--muted);
+      }
+
+      .socials {
+        display: flex;
+        gap: 0.8rem;
+      }
+
+      .socials a {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      @media (max-width: 860px) {
+        nav {
+          display: none;
+        }
+
+        .hero-inner,
+        .about-grid,
+        .cards {
+          grid-template-columns: 1fr;
+        }
+
+        .section-head {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="#top" class="brand">My <span>Website</span></a>
+        <nav>
+          <a href="#about">About</a>
+          <a href="#hobby">Hobby</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a href="#contact" class="btn btn-primary">お問い合わせ</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-inner">
+          <div>
+            <div class="eyebrow">Creative Portfolio</div>
+            <h1>
+              Hello, I'm <span class="highlight">Aoi</span><br />
+              a curious creator.
+            </h1>
+            <p class="lead">
+              このサイトでは、私の自己紹介や趣味、好きなことを、少しだけかっこいい形で紹介しています。
+              読書が好きで、少しずつ新しいことに挑戦する日々を大切にしています。
+            </p>
+
+            <div class="hero-actions">
+              <a href="#about" class="btn btn-primary">自己紹介を見る</a>
+              <a href="#hobby" class="btn btn-secondary">趣味を見る</a>
+            </div>
+
+            <div class="hero-meta">
+              <div>
+                <strong>3+</strong>
+                Years of learning
+              </div>
+              <div>
+                <strong>10+</strong>
+                Favorite books
+              </div>
+              <div>
+                <strong>∞</strong>
+                Curiosity
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-card">
+            <div class="profile-visual">
+              <div class="profile-content">
+                <div class="profile-badge">Portfolio</div>
+                <div class="profile-name">
+                  <h2>Aoi Sato</h2>
+                  <p>Web lover / Book enthusiast / Dream chaser</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="container">
+          <div class="section-head">
+            <h3>About Me</h3>
+            <p>自分を知ってもらうための、少しだけ大人っぽい紹介です。</p>
+          </div>
+
+          <div class="about-grid">
+            <div class="about-box">
+              <p>
+                はじめまして。私はAoiと申します。<br />
+                物事を丁寧に見て、少しずつ理解を深めるのが好きです。<br />
+                その中で、読書は私にとって大切な時間であり、たくさんの考え方や世界を知るための窓でもあります。
+              </p>
+            </div>
+
+            <div class="info-box">
+              <h4>Profile</h4>
+              <ul>
+                <li><span>名前</span><strong>Aoi Sato</strong></li>
+                <li><span>趣味</span><strong>読書・デザイン・散歩</strong></li>
+                <li><span>好きなこと</span><strong>新しい発見</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="hobby">
+        <div class="container">
+          <div class="section-head">
+            <h3>Hobby</h3>
+            <p>日常の中で、私が大切にしていることを紹介します。</p>
+          </div>
+
+          <div class="cards">
+            <article class="card">
+              <div class="icon">📚</div>
+              <h4>読書</h4>
+              <p>本を読む時間は、心を整え、考えを深くする大切なひとときです。</p>
+            </article>
+
+            <article class="card">
+              <div class="icon">🎨</div>
+              <h4>デザイン</h4>
+              <p>見た目の美しさや、伝わる雰囲気を作ることに惹かれています。</p>
+            </article>
+
+            <article class="card">
+              <div class="icon">🌿</div>
+              <h4>散歩</h4>
+              <p>少し遠くを歩く時間が、気持ちを落ち着かせてくれます。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="contact">
+      <div class="container footer-inner">
+        <div>© 2026 Aoi Sato</div>
+        <div class="socials">
+          <a href="#" aria-label="Instagram">◎</a>
+          <a href="#" aria-label="X">X</a>
+          <a href="#" aria-label="GitHub">◌</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
